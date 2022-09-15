@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{%block head%}
+{% load get_rating %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'individual.css'%}">
+{%endblock%}
+{% block body %}
+<div class="main_content">
+    <div class="img_div">
+        <img src="{{media_url}}{{obj.img}}" />
+    </div>
+    <div class="description_div">
+        <div class="main_description">
+            <br>
+            {{obj.brand}}-{{obj.product_name}}
+            <div class="rating">
+                {% get_rating obj as r %}
+                {% for i in r%}
+                <img src="{% static i %}">
+                {% endfor%}
+            </div>
+
+            <br>
+            <h1 style="color: red;display: inline;">-{{obj.discount}}%</h1>
+            <h1 style="color:rgb(212, 194, 91);display: inline;"> ₹{{obj.price}}/-</h1>
+        </div>
+        <div class="action_div">
+            <form action="" method="post">
+                <select name="size" id="" required>
+                    <option value="" hidden>Choose size</option>
+                    <option name="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+                <label for="count">How Many do You Want</label><br>
+                <input type="number" name="count">
+                <input type="hidden" name="product_id" value={{obj.id}}>
+                <!-- {% if user.is_authenticated %} -->
+                <button type="submit" formaction='/cart/add_to_cart/'>Add to cart</button>
+                <button type="submit" formaction='/buy_now'>Buy Now</button>
+                {% csrf_token %}
+                <!-- {% else %} -->
+                <!-- <button type="submit" formaction='/validate/login/?next=/cart/add_to_cart/{{POST.f}}'>Add to
+                    cart</button>
+                <button type="submit" formaction='/validate/login/?next=/buy_now'>Buy Now</button> -->
+                <!-- {% endif %} -->
+            </form>
+
+        </div>
+    </div>
+
+</div>
+{% endblock%}

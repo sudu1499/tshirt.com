@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block body%}
+<!-- <div class="img_div">
+    <img src="{%static 'login.jpeg'%}" alt="">
+</div> -->
+<div class="login_div">
+    <form action="" method="post">
+        <div><i class="fa fa-envelope" style="font-size:36px"></i><label for="emai">Email</label></div>
+        <input type="text" required name="email">
+        <div><i class="fa fa-lock" style="font-size:36px"></i><label for="password">Password</label></div>
+        <input type="password" required name="pass">
+        <a href="/validate/forgot_pass">forgot password</a>
+        <button type="submit">Login</button>
+        <input type="hidden" name="only for login.html">
+        {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% endif %}
+        <a href="/validate/signup" style="text-decoration:none">Dont have an account</a>
+        {% csrf_token%}
+        {% if error %}
+        <h3 style="color: red;">
+            {{error}}
+        </h3>
+        {% endif %}
+    </form>
+
+</div>
+
+{% endblock%}

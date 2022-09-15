@@ -1,0 +1,93 @@
+<html>
+
+<head>
+    <title>
+        home page
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <!-- <link rel="stylesheet" href="home.css"> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+    {% block head%}
+    {% endblock%}
+</head>
+
+<body>
+    <nav>
+        <div id="left">
+            <div id="logo">
+                <a href="/" >Tshirt</a>
+            </div>
+            <div class="form_div">
+                <form action="" method="get" class="form_class">
+                    <input type="text" class="inp_class" placeholder="find here">
+                    <button class="sb"><img src="{% static 'search.jpeg' %}" id="si"></button>
+                </form>
+            </div>
+        </div>
+
+        <ul class="nav_links">
+            <div class="form_div_hidden">
+                <form action="" method="get" class="form_class">
+                    <input type="text" class="inp_class" placeholder="find here">
+                    <button class="sb"><img src="{% static 'search.jpeg' %}" id="si"></button>
+                </form>
+            </div>
+            <li>
+                <a href="">About</a>
+            </li>
+            <li>
+                <a href="/cart/list_cart">Cart</a>
+            </li>
+            <li>
+                <a href="">Compare</a>
+            </li>
+            {% if  user.is_authenticated %}
+            <li><a href="/validate/logout">Logout</a></li>
+            <li><a href="" style="border: 1px solid rgb(245, 242, 242);padding: 10px;border-radius: 20px;">hay {{user}}</a></li>
+
+            {% else %}
+            <li>
+                <a href="/validate/login">Login</a>
+            </li>
+            <li>
+                <a href="/validate/signup">Signup</a>
+            </li>
+            {% endif%}
+        </ul>
+
+        <div id="burger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+    <div class="main">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <div id="footer">
+            contact us
+            <ul>
+                <li>
+                    <a href=''>Eagle's eye innovations and technology</a>
+                </li>
+                <li>
+                    &#169TSHIRT.com
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    {%block script%}
+    {% endblock%}
+    <script src="{% static 'base.js' %}"></script>
+</body>
+
+</html>

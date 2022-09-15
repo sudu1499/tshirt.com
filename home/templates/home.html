@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block head%}
+{% load static%}
+<link rel="stylesheet" href="{% static 'home.css'%}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="img_slider"></div>
+    <br>
+    <div class="category">
+        {% for i in obj %}
+        <div class="individual">
+            <!-- <div class="dumm1"></div>
+            <div class="dumm2"></div> -->
+            <img src="{{media_url}}/{{i.img}}" >
+            <h1>{{i.category_name}}</h1>
+        </div>
+        {%endfor%}
+    </div>
+
+   
+{% endblock %}
+
+{%block script%}
+
+<script src="{% static 'home.js'%}"></script>
+{%endblock%}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head%}
+{%load static%}
+{% load get_rating %}
+<link rel="stylesheet" href="{% static 'product_list.css'%}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block body%}
+<div class="main1">
+    <div id="status">showing results of {{category_name}} category</div>
+    <div class="lsit_div">
+        {% for i in obj %}
+        <div class="list">
+            <div>
+                <a href="/individual/{{i.id}}">
+                    <img src="{{media_url}}{{i.img}}" class="list_img">
+                </a>
+                
+            </div>
+            <div class="list_content">
+                <br>
+                <a href="/individual/{{i.product_id}}">{{i.brand}}
+                {{i.product_name}}</a>
+                <div class="rating">
+                    {%   get_rating i as f %}
+                    {% for j in f%}
+                    <img src="{% static j %}" style="margin-top: 10px;" class="product_img">
+                    {% endfor %}
+                </div>
+                <br>
+                <h2 style="color: red;display:inline">-{{i.discount}}%</h2> <h2 style="color: rgb(119, 104, 5);display:inline">₹{{i.price}}</h2>/-
+            </div>
+        </div>
+        {% endfor %}
+    </div>              
+</div>
+
+
+{% endblock%}
+
+{%block script%}
+
+{%endblock%}

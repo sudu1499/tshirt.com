@@ -1,0 +1,98 @@
+.main {
+    /* background-color: rgb(238, 233, 226); */
+    width: auto;
+    height: auto;
+    margin: auto auto;
+    border-radius: 3px;
+    display: inline;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.main1 {
+    width: 80%;
+    height: auto;
+    min-height: 100%;
+    /* background-color: rgb(226, 226, 226); */
+}
+
+#status {
+    box-shadow: 0 0 3px 3px black;
+    /* display: inline; */
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    margin: 10px;
+}
+
+.lsit_div {
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.list {
+    width: 15vw;
+    min-width: 250px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 10px 20px;
+    /* background-image: linear-gradient(to right,rgb(245, 244, 243),rgb(190, 190, 190),rgb(245, 244, 243)); */
+    /* border-radius:3px ; */
+    box-shadow: 0 0 10px 5px black;
+    padding: 10px;
+
+}
+
+.list_img {
+
+    width: 100%;
+    min-width: 90%;
+    display: inline;
+}
+
+/* .list_content{
+   float: right;
+} */
+
+#select_id {
+    width: 200px;
+}
+
+/* .one,.two,.three,.four,.five{
+    background-image: url('static/full.jpeg');
+    width:auto;
+    height: auto;
+} */
+.rating {
+    display: flex;
+    flex-direction: row;
+}
+
+.rating img {
+    height: 30px;
+}
+
+.list:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px 7px black;
+
+}
+
+.list a {
+    text-decoration: none;
+    color: black;
+    text-transform: capitalize;
+}
+
+.list a:hover {
+    color: orangered;
+}

@@ -1,0 +1,23 @@
+.main{
+    width:90%;  
+    /* background-color: rgb(240, 239, 238); */
+    margin:auto;
+}
+.img_div{
+    width: 50%;
+    height: 40vw;
+    display: flex;
+    justify-content: center;
+}
+.img_div img{
+    height: 90%;
+    margin: auto;
+
+}
+.main_content{
+    display: flex;
+    flex-direction: row;
+}
+.rating img{
+    width: 30px;
+}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'forgot.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block body%}
+
+<div class="forgot_div">
+    <form action="" method="post">
+        <div><i class="fa fa-envelope" style="font-size:36px"></i><label for="emai">Email</label></div>
+        <input type="text" required name="email">
+        <div><i class="fa fa-lock" style="font-size:36px"></i><label for="password">Password</label></div>
+        <input type="password" required name="pass">
+        <a href="/validate/forgot_pass">forgot password</a>
+        <button type="submit">forgot</button>
+        <a href="/validate/signup" style="text-decoration:none">Dont have an account</a>
+        {% csrf_token%}
+        {% if error %}
+        <h3 style="color: red;">
+            {{error}}
+        </h3>
+        {% endif %}
+    </form>
+
+</div>
+
+{% endblock%}

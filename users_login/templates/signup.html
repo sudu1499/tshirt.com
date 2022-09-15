@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{{request.session.name}}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'signup.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block body%}
+
+<div class="signup_div">
+    <form action="" method="post">
+        <div><i class="fa fa-user" id="i1" style="font-size:36px"></i><label for="user_name">User Name</label></div>
+        <input type="text" required name="user_name" value="{{user_name}}">
+        <div><i class="fa fa-envelope" id="i2"style="font-size:36px"></i><label for="emai">Email</label></div>
+        <input type="email" required name="email" value="{{email}}">
+        <div><i class="fa fa-lock" id="i3" style="font-size:36px"></i><label for="password">Password</label></div>
+        <input type="password" required name="pass1" id="pass1"> 
+        <div><i class="fa fa-lock" id="i4" style="font-size:36px"></i><label for="password">Password</label></div>
+        <input type="password" required name="pass2" id="pass2">
+        <button type="submit" id="btn">signup</button>
+        <a href="/validate/login" style="text-decoration: none;">Already have an account</a>
+        {% csrf_token%}
+        {% if error %}
+        <h3 style="color: red;">
+            {{error}}
+        </h3>
+        {% endif %}
+    </form>
+
+</div>
+
+{% endblock%}
+
+{% block script %}
+<script src="{% static 'signup.js' %}"></script>
+{% endblock%}
