@@ -26,6 +26,6 @@ urlpatterns = [
     path('product_list/',include('product_list.urls')),
     path('individual/',include('individual.urls')),
     path('validate/',include('users_login.urls')),
-    path('cart/',include('cart.urls')),
+    path('cart/',include('Tshirt_cart.urls')),
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,8 @@
     <div class="description_div">
         <div class="main_description">
             <br>
-            {{obj.brand}}-{{obj.product_name}}
+            {{obj.brand}}-{{obj.product_name}} <br>
+            colour:{{obj.colour}} 
             <div class="rating">
                 {% get_rating obj as r %}
                 {% for i in r%}
@@ -23,11 +24,12 @@
 
             <br>
             <h1 style="color: red;display: inline;">-{{obj.discount}}%</h1>
-            <h1 style="color:rgb(212, 194, 91);display: inline;"> ₹{{obj.price}}/-</h1>
+            <h1 style="color:rgb(212, 194, 91);display: inline;margin-bottom:20px;"> ₹{{obj.price}}/-</h1>
+            <br>
         </div>
         <div class="action_div">
-            <form action="" method="post">
-                <select name="size" id="" required>
+            <form action="" method="post" id="action_div_form">
+                <select name="size" id="size" required>
                     <option value="" hidden>Choose size</option>
                     <option name="Small">Small</option>
                     <option value="Medium">Medium</option>
@@ -35,18 +37,15 @@
                     <option value="XL">XL</option>
                     <option value="XXL">XXL</option>
                 </select>
-                <label for="count">How Many do You Want</label><br>
-                <input type="number" name="count">
+                <br>
+                <!-- <label for="count"> </label>  -->
+                <input type="number" name="count" placeholder="Quantity">
                 <input type="hidden" name="product_id" value={{obj.id}}>
-                <!-- {% if user.is_authenticated %} -->
-                <button type="submit" formaction='/cart/add_to_cart/'>Add to cart</button>
-                <button type="submit" formaction='/buy_now'>Buy Now</button>
+                <br>
+                <button type="submit" formaction='/cart/add_to_cart/' class="f_btn">Add to cart</button>
+                <button type="submit" formaction='/buy_now' class="f_btn">Buy Now</button>
                 {% csrf_token %}
-                <!-- {% else %} -->
-                <!-- <button type="submit" formaction='/validate/login/?next=/cart/add_to_cart/{{POST.f}}'>Add to
-                    cart</button>
-                <button type="submit" formaction='/validate/login/?next=/buy_now'>Buy Now</button> -->
-                <!-- {% endif %} -->
+            
             </form>
 
         </div>
