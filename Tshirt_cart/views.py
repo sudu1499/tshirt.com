@@ -36,19 +36,23 @@ def add_to_cart(request):
         usn=User.objects.all().filter(username=username)
         p=products.objects.filter(id=int(pid))[0]
         try:
-            obj=cart.objects.get(product_id_id=p.id)
+            print('yes there is obj in try case',p.id)
+            obj=cart.objects.get(product_id_id=p.id,)
             if obj.size==size:
                 ob=cart.objects.get(product_id_id=p.id)
                 ob.product_count+=int(pcnt)
                 ob.save()
+                print('in try true case')
             else:
                 obj=cart.objects.create(user_name=usn[0],product_id_id=p.id,product_count=pcnt,size=size)
                 obj.save()
+                print('in try false case')
 
         except:
             obj=cart.objects.create(user_name=usn[0],product_id_id=p.id,product_count=pcnt,size=size)
         # obj.product_id.set(pid)
             obj.save()
+            print('in except case')
         print('done')
         # obj.user_name=username
         # obj.product_id=pid
@@ -67,3 +71,11 @@ def update_db(request):
     obj.save()
     print('updated')
     return JsonResponse({'message':request.GET['updated_count']})
+
+def delete_item(request):
+    print('command to delete an item')
+    obj=cart.objects.get(id=int(request.GET['cart_id']))
+    obj.delete()
+    print('deleted')
+    return JsonResponse({'message': 'deleted record'})
+

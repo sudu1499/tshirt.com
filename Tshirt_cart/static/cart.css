@@ -2,7 +2,7 @@
     width:200px;
     padding: 3px;
 }
-.sub_cart{
+div[class^=sub_cart]{
     margin: 10px auto;
     width:80%;
     height:auto;

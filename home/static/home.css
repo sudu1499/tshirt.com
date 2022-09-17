@@ -35,6 +35,11 @@ body{
     }
 
 }
+@media screen and (max-width:900px){
+    .main{
+        width:100vw;
+    }
+}
 @keyframes imgchanger {
     0%{
     background:url('i1.jpeg');

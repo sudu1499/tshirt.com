@@ -5,16 +5,16 @@
 {% load int_f %}
 <link rel="stylesheet" href="{% static 'cart.css'%}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {% endblock%}
 
 {% block body %}
 <div class="sub_main">
     <div class="cart">
-        <hr>
         {% for cart_obj,prd_obj in cart_prod %}
 
-        <div class="sub_cart">
+        <div class="sub_cart_{{forloop.counter}}">
             <div class="img_part">
                 <img src="{{media_url}}{{prd_obj.img}}">
             </div>
@@ -25,14 +25,16 @@
                 <br>
                 <h1>Quantity:</h1><input type="number" value="{{cart_obj.product_count}}" class="update_inp{{forloop.counter}}" onclick="func('update_btn{{forloop.counter}}');">
                 <button class="update_btn{{forloop.counter}}" 
-                onclick="update_db('update_inp{{forloop.counter}}','{{cart_obj.id}}')" style="display: none;">Update</button>
+                onclick="update_db('update_inp{{forloop.counter}}','{{cart_obj.id}}','sub_cart_{{forloop.counter}}')" style="display: none;">Update</button>
+                <button style="width:30px" onclick="delete_item('{{cart_obj.id}}','sub_cart_{{forloop.counter}}','hr_{{forloop.counter}}')"><i class="fa fa-trash-o" style="font-size:30px;color:red"></i>
+                </button>
                 </select>
             </div>
             <div class="price_part">
                 <h1>₹{{prd_obj.price}}/-</h1>
             </div>
         </div>
-        <hr>
+        <hr class="hr_{{forloop.counter}}">
         {% endfor %}
     </div>
     <div class="sub_total">
