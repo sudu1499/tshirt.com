@@ -35,24 +35,20 @@ def add_to_cart(request):
         pcnt=request.POST['count']
         usn=User.objects.all().filter(username=username)
         p=products.objects.filter(id=int(pid))[0]
+        # obj1=cart.objects.get(product_id_id=int(pid),user_name=int(usn[0].id),size=size)
         try:
-            print('yes there is obj in try case',p.id)
-            obj=cart.objects.get(product_id_id=p.id,)
-            if obj.size==size:
-                ob=cart.objects.get(product_id_id=p.id)
-                ob.product_count+=int(pcnt)
-                ob.save()
-                print('in try true case')
+            obj1=cart.objects.get(product_id_id=int(pid),user_name=int(usn[0].id),size=size)
+            if obj1.id:
+                obj1.product_count+=int(pcnt)
+                obj1.save()
             else:
                 obj=cart.objects.create(user_name=usn[0],product_id_id=p.id,product_count=pcnt,size=size)
                 obj.save()
-                print('in try false case')
 
         except:
             obj=cart.objects.create(user_name=usn[0],product_id_id=p.id,product_count=pcnt,size=size)
         # obj.product_id.set(pid)
             obj.save()
-            print('in except case')
         print('done')
         # obj.user_name=username
         # obj.product_id=pid

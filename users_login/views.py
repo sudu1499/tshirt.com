@@ -14,7 +14,7 @@ def login_handler(request):
                 next=request.POST['next']
                 print('next=',next)
                 return redirect(next)
-            return redirect('/home')
+            return redirect('/')
         else:
             return render(request,'login.html',{'error':'invalid user or password'})
     else:

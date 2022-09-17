@@ -7,21 +7,41 @@
 // here 'acive' name is added and removed alternatively to change the class name 
 
 
-const individual=document.querySelectorAll('.individual')
-const dumm1=document.getElementsByClassName('dumm1')[0]
-const dumm2=document.getElementsByClassName('dumm2')[0]
-// const individual_class=document.getElementsByClassName('individual')[0]
+let main = document.getElementsByClassName('individual')
 
 
-for(let i=0;i<individual.length;i++)
-{   
-    
-    let category=individual[i].getElementsByTagName('h1')[0].innerHTML
-    individual[i].addEventListener('click',()=>{
-        window.location.href=window.location.href+'product_list/'+category+'/'
+
+function redirect(category) {
+    window.location.href = window.location.href + 'product_list/' + category + '/'
+}
+
+for (let i = 0; i < main.length; i++) {
+    const b1 = main[i].getElementsByClassName('b1')[0]
+    const b2 = main[i].getElementsByClassName('b2')[0]
+    const img = main[i].getElementsByClassName('ind_img')[0]
+
+    main[i].addEventListener('mouseover', () => {
+        b1.style.rotate = '10deg';
+        b2.style.rotate = '-10deg';
+        img.style.width = '101%';
+        img.style.height = '101%';
+        b1.style.zIndex = '-1';
+        b2.style.zIndex = '-1';
+        img.style.zIndex = '1000';
+        b1.style.boxShadow = '0 0 10px 10px black';
+        b2.style.boxShadow = '0 0 10px 10px black';
+    })
+    main[i].addEventListener('mouseleave', () => {
+        b1.style.rotate = '0deg';
+        b2.style.rotate = '0deg';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        b1.style.boxShadow = '0 0 black';
+        b2.style.boxShadow = '0 0 black';
+        b1.style.zIndex = '-1';
+        b2.style.zIndex = '-1';
+        img.style.zIndex = '1000';
     })
 
 }
-function animate(){
-    alert('hay')
-}
+

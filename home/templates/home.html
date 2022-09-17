@@ -6,20 +6,21 @@
 
 {% block body %}
 
-    <div class="img_slider"></div>
-    <br>
-    <div class="category">
-        {% for i in obj %}
-        <div class="individual">
-            <!-- <div class="dumm1"></div>
-            <div class="dumm2"></div> -->
-            <img src="{{media_url}}/{{i.img}}" >
-            <h1>{{i.category_name}}</h1>
-        </div>
-        {%endfor%}
+<div class="img_slider"></div>
+<br>
+<div class="category">
+    {% for i in obj %}
+    <div class="individual">
+        <div class="b1"></div>
+        <div class="b2"></div>
+        <img src="{{media_url}}/{{i.img}}" class="ind_img" 
+        onclick="redirect('{{i.category_name}}')">
     </div>
+    <!-- <h1>{{i.category_name}}</h1> -->
+    {%endfor%}
+</div>
 
-   
+
 {% endblock %}
 
 {%block script%}
