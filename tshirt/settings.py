@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'individual',
     'product_list',
     'users_login',
-    'Tshirt_cart'
+    'Tshirt_cart',
+    'billing'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
+
+RAZORPAY_KEY_ID='rzp_test_6yHAea8jFT38A9'
+RAZORPAY_SECRET_KEY='MBg2md5cJPr91YiH5Qbsvu9f'

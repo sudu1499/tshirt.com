@@ -4,6 +4,7 @@ from .models import cart
 from product_list.models import products
 from django.contrib.auth.models import User
 from django.conf import settings
+
 # Create your views here.
 def list_cart(request):
     if request.user.is_authenticated:
@@ -17,7 +18,13 @@ def list_cart(request):
         cart_prod=[]
         for i in cart_obj:
             cart_prod.append([i,products.objects.filter(id=i.product_id_id)[0]])
-        return render(request,'cart.html',{'cart_prod':cart_prod,'media_url':settings.MEDIA_URL})
+        summ=0
+        for j,i in cart_prod:
+            summ+=j.product_count*i.price
+        print('total sum is ',summ)
+        obj=cart.objects.filter(user_name=uuid.id)
+
+        return render(request,'cart.html',{'cart_prod':cart_prod,'media_url':settings.MEDIA_URL,'total_sum':summ,'remaining':len(obj)})
 
     else:
         return redirect('/validate/login/?next=/cart/')
@@ -35,9 +42,9 @@ def add_to_cart(request):
         pcnt=request.POST['count']
         usn=User.objects.all().filter(username=username)
         p=products.objects.filter(id=int(pid))[0]
-        # obj1=cart.objects.get(product_id_id=int(pid),user_name=int(usn[0].id),size=size)
         try:
-            obj1=cart.objects.get(product_id_id=int(pid),user_name=int(usn[0].id),size=size)
+            # obj1=cart.objects.get(product_id_id=int(pid),user_name=int(usn[0].id),size=size) this should be used when for different sizes product ids are different
+            obj1=cart.objects.get(product_id_id=int(pid),user_name=int(usn[0].id))
             if obj1.id:
                 obj1.product_count+=int(pcnt)
                 obj1.save()
@@ -47,14 +54,10 @@ def add_to_cart(request):
 
         except:
             obj=cart.objects.create(user_name=usn[0],product_id_id=p.id,product_count=pcnt,size=size)
-        # obj.product_id.set(pid)
             obj.save()
         print('done')
-        # obj.user_name=username
-        # obj.product_id=pid
-        # obj.product_count=pcnt
-        # obj.size=size
-        return render(request,'cart.html')
+
+        return redirect('/')
 
     else:
         return render(request,'cart.html')
@@ -73,5 +76,6 @@ def delete_item(request):
     obj=cart.objects.get(id=int(request.GET['cart_id']))
     obj.delete()
     print('deleted')
-    return JsonResponse({'message': 'deleted record'})
+    obj=cart.objects.all()
+    return JsonResponse({'message': 'deleted record','remaining':len(obj)})
 

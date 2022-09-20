@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+{% block  head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'buy.css' %}">
+{% endblock%}
+
+{% block body %}
+<div class="sub_main">
+    <div class="individual_item">
+        <h1>Name</h1>
+        <h1>quantity</h1>
+        <h1>cost</h1>
+    </div>
+    {% if buy_now %}
+    <div class="individual_item">
+        <h1>{{prod_obj.product_name}}</h1>
+        <h1>{{count}}</h1>
+        <h1>₹{{total_sum}}/-</h1>
+    </div>
+    {% else %}
+    {% for i,j,k in cart_order_prod %}
+    <div class="individual_item">
+        <h1>{{k.product_name}}</h1>
+        <h1>{{i.product_count}}</h1>
+        <h1>₹{{j.total_amount}}/-</h1>
+    </div>
+    <!-- <hr style="width:90%;margin:auto"> -->
+    {% endfor%}
+    {% endif%}
+</div>
+<div class="total">
+    <br>
+    <h2>Total of</h2>
+    <hr style="width: 90%;margin:auto"><br>
+    <h2>₹{{total_sum}}/-</h2>
+    <button style="background-color:yellow;border-radius:30px;width:200px;height:40px" id="rzp-button1">pay ₹{{total_sum}}/-</button>
+    <button style="border-radius:30px;width:200px;height:40px;margin-top: 10px;"
+     onclick="location.href='/cart/list_cart'">Edit cart</button>
+     
+</div>
+{% endblock %}
+
+{% block script%}
+<script src="{% static 'buy.js' %}"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "{{RAZORPAY_KEY_ID}}", // Enter the Key ID generated from the Dashboard
+    "amount": "{{total_sum_paise}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Eagle's eye innovations and technologies",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    'redirect':true,
+    "callback_url": "http://127.0.0.1:8000/buy/success/",
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+<!-- <script>
+var options = {
+     //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    'redirect':true,
+    'callback_url':'/buy/success',
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script> -->
+{% endblock%}

@@ -39,11 +39,11 @@
                 </select>
                 <br>
                 <!-- <label for="count"> </label>  -->
-                <input type="number" name="count" placeholder="Quantity">
+                <input type="number" name="count" placeholder="Quantity" required>
                 <input type="hidden" name="product_id" value={{obj.id}}>
                 <br>
                 <button type="submit" formaction='/cart/add_to_cart/' class="f_btn">Add to cart</button>
-                <button type="submit" formaction='/buy_now' class="f_btn">Buy Now</button>
+                <button type="submit" formaction='/buy/buy_now/' class="f_btn">Buy Now</button>
                 {% csrf_token %}
             
             </form>

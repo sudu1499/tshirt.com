@@ -2,22 +2,31 @@
     width:200px;
     padding: 3px;
 }
+.img_part{
+    /* margin: auto; */
+}
 div[class^=sub_cart]{
     margin: 10px auto;
-    width:80%;
+    width:95%;
     height:auto;
     /* box-shadow: 0 0 5px 5px black; */
+    flex-wrap:wrap;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 .cart{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width:80%;}
+    width:60%;
+    background-color: rgba(173, 173, 173, 0.432);
+}
 .discription_part{
     padding:10px;
-    width:80%;
+    width:60%;
+    margin: auto;
 }
 .price_part{
     padding:10px;
@@ -31,7 +40,7 @@ hr{
 .sub_main{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .update{
     display: none;
@@ -39,4 +48,71 @@ hr{
     width:100px;
     height: 30px;
     background-color: yellow;
+}
+.discription_part input{
+    border:0;
+    outline: none;
+    height: 30px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.sub_total
+{
+    width:200px;
+    height:200px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px black;
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media screen and (max-width:1010px) {
+
+    .img_part img{
+        width:250px;
+    }
+    .discription_part{
+        width: 100%;
+    }
+}
+@media screen and (max-width:600px) {
+
+    .sub_main{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .img_part img{
+        width:250px;
+        
+    }
+    .discription_part{
+        width:100%;
+    }
+    .cart{
+        margin: auto;
+        width:90%;
+    }
+    .sub_total{
+        margin: 10px auto;
+    }
+}
+@media screen and (max-width:330px) {
+
+    .sub_main{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .discription_part{
+        width:100%;
+    }
+    .cart{
+        margin: auto;
+        width:100%;
+    }
+    .sub_total{
+        margin: 10px auto;
+    }
 }

@@ -11,35 +11,62 @@
 
 {% block body %}
 <div class="sub_main">
+    {% if remaining %}
     <div class="cart">
         {% for cart_obj,prd_obj in cart_prod %}
 
         <div class="sub_cart_{{forloop.counter}}">
             <div class="img_part">
-                <img src="{{media_url}}{{prd_obj.img}}">
+                <a href="/individual/{{prd_obj.id}}/"><img src="{{media_url}}{{prd_obj.img}}"></a>
             </div>
             <div class="discription_part">
 
-                <h1>{{prd_obj.brand}}-{{prd_obj.product_name}} <br><br>
+                <h1><a href="/individual/{{prd_obj.id}}/">{{prd_obj.brand}}-{{prd_obj.product_name}} </a><br><br>
                     Size:{{ cart_obj.size}}</h1>
                 <br>
-                <h1>Quantity:</h1><input type="number" value="{{cart_obj.product_count}}" class="update_inp{{forloop.counter}}" onclick="func('update_btn{{forloop.counter}}');">
-                <button class="update_btn{{forloop.counter}}" 
-                onclick="update_db('update_inp{{forloop.counter}}','{{cart_obj.id}}','sub_cart_{{forloop.counter}}')" style="display: none;">Update</button>
-                <button style="width:30px" onclick="delete_item('{{cart_obj.id}}','sub_cart_{{forloop.counter}}','hr_{{forloop.counter}}')"><i class="fa fa-trash-o" style="font-size:30px;color:red"></i>
+                <h1>₹{{prd_obj.price}}/-</h1><br>
+                <h1>Quantity:</h1><input type="number" value="{{cart_obj.product_count}}"
+                    class="update_inp{{forloop.counter}}" onclick="func('update_btn{{forloop.counter}}');">
+                <button class="update_btn{{forloop.counter}}"
+                    onclick="update_db('update_inp{{forloop.counter}}','{{cart_obj.id}}','sub_cart_{{forloop.counter}}')"
+                    style="display: none;">Update</button>
+                <button style="width:30px;height: 40px;"
+                    onclick="delete_item('{{cart_obj.id}}','sub_cart_{{forloop.counter}}','hr_{{forloop.counter}}')"><i
+                        class="fa fa-trash-o" style="font-size:30px;color:red"></i>
                 </button>
                 </select>
             </div>
-            <div class="price_part">
+            <!-- <div class="price_part">
                 <h1>₹{{prd_obj.price}}/-</h1>
-            </div>
+            </div> -->
         </div>
         <hr class="hr_{{forloop.counter}}">
         {% endfor %}
     </div>
     <div class="sub_total">
+        <br>
+        <h2>Total of</h2>
+        <br>
+        <hr style="width: 90%;margin:auto"><br>
+        <h1 id="total_h1">₹{{total_sum}}/-</h1>
+        <button style="background-color:yellow;border-radius:30px;width:200px;height:40px"
+            onclick="location.href='/buy/add_to_order'">proceed to buy</button>
     </div>
 </div>
+{% else %}
+<div class="sub_total">
+    <br>
+    <h2>Total of</h2>
+    <br>
+    <hr style="width: 90%;margin:auto"><br>
+    <h1 id="total_h1">₹{{total_sum}}/-</h1>
+    <h1>your cart is empty </h1>
+    <button style="background-color:yellow;border-radius:30px;width:200px;height:40px" onclick="location.href='/'">Add
+        to cart</button>
+</div>
+</div>
+{% endif%}
+
 {% endblock %}
 
 {% block script%}
