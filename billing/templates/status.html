@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block head%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'status.css'%}">
+{% endblock %}
+{% block body %}
+
+<div class="submain">
+    <h1>{{status}}</h1>
+    <button onclick="window.location.href='/'"> Leaving something?</button>
+</div>
+{% endblock%}

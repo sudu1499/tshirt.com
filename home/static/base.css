@@ -97,7 +97,7 @@ body{
     display: none;
 }
 
-@media screen and (max-width:1204px) {
+@media screen and (max-width:1403px) {
 
     #burger {
         display: inline;

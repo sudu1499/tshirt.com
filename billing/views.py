@@ -1,3 +1,4 @@
+from ast import Delete
 import hashlib
 from re import T
 from django.http import HttpResponse
@@ -74,11 +75,17 @@ def order_success(request):
                 obj.status='sucessfull'
                 obj.save()
                 print('sucessfull status saved')
+                cart.objects.all().delete()
+                try:
+                    buy_now_order.objects.all().delete()
+                except:
+                    pass
+
                 client.utility.verify_payment_signature({
                     'razorpay_order_id': raz_order_id,
                     'razorpay_payment_id': raz_payment_id,
                     'razorpay_signature': raz_sig})
-                return render(request,'success.html')
+                return render(request,'status.html',{'status':'Thank u We got your order'})
             else:
                 obj=payment_history.objects.get(order_id=raz_order_id)
                 obj.status='failure'
@@ -92,7 +99,7 @@ def order_success(request):
                 obj=payment_history.objects.get(order_id=oid)
                 obj.status='failure'
                 obj.save()
-                return HttpResponse('sorry the payment was unsucessfull')
+                return render(request,'status.html',{'status':'Sorry we didnot get ur order'})
 
     return HttpResponse('bad request')
 
