@@ -3,9 +3,11 @@
 {% block  head %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'buy.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% endblock%}
 
 {% block body %}
+
 <div class="sub_main">
     <div class="individual_item">
         <h1>Name</h1>
@@ -48,15 +50,12 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 var options = {
-    "key": "{{RAZORPAY_KEY_ID}}", // Enter the Key ID generated from the Dashboard
-    "amount": "{{total_sum_paise}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": "Eagle's eye innovations and technologies",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
-    "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     'redirect':true,
-    "callback_url": "http://127.0.0.1:8000/buy/success/",
+    "callback_url": "http://127.0.0.1:8000/buy/success/{{request.user.username}}/{{buy_now}}/",
     "prefill": {
         "name": "Gaurav Kumar",
         "email": "gaurav.kumar@example.com",
@@ -69,11 +68,24 @@ var options = {
         "color": "#3399cc"
     }
 };
-var rzp1 = new Razorpay(options);
 document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
+
+    $.ajax({
+        method:'GET',
+        url:'/buy/create_razorpay_order/',
+    }).done((response)=>{
+        {
+            options['key']=response['RAZORPAY_KEY_ID']
+            options['order_id']=response['payment_id']
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+            e.preventDefault();
+        }
+        
+    })
 }
+
+
 </script>
 <!-- <script>
 var options = {

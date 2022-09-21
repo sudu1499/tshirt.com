@@ -41,6 +41,7 @@
                 <!-- <label for="count"> </label>  -->
                 <input type="number" name="count" placeholder="Quantity" required>
                 <input type="hidden" name="product_id" value={{obj.id}}>
+                <input type="hidden" name="product_price" value={{obj.price}}>
                 <br>
                 <button type="submit" formaction='/cart/add_to_cart/' class="f_btn">Add to cart</button>
                 <button type="submit" formaction='/buy/buy_now/' class="f_btn">Buy Now</button>

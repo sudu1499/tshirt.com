@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'product_list',
     'users_login',
     'Tshirt_cart',
-    'billing'
+    'billing',
+    # 'myorder',
 ]
 
 MIDDLEWARE = [

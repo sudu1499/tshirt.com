@@ -28,5 +28,6 @@ urlpatterns = [
     path('validate/',include('users_login.urls')),
     path('cart/',include('Tshirt_cart.urls')),
     path('buy/',include('billing.urls')),
+    # path('myorder/',include('myorder.urls')),
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
