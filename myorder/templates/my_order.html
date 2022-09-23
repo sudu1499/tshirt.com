@@ -1,1 +1,41 @@
 {% extends 'base.html' %}
+{% block head%}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'my_order.css'%}">
+
+{% endblock%}
+
+{% block body %}
+
+<div class="sub_main">
+    {% for order,prod in order_prod %}
+    <div class="individual">
+        <div class="order_div">
+            <div class="left">
+                <h1>order # {{order.order_id}}</h1>
+                <h1>{{order.date}}</h1>
+            </div>
+            <div class="right">
+                <h1>total of {{order.count}}</h1>
+                <h1>amount paid {{order.amount}}</h1>
+            </div>
+        </div>
+        <div class="disc_div">
+            <div class="img_div">
+                <img src="{{MEDIA_URL}}{{prod.img}}" alt="">
+            </div>
+            <div class="text_div">
+                <h1>{{prod.brand}}-{{prod.product_name}}</h1>
+                <button onclick="window.location.href='/individual/{{prod.id}}/'">Buy again</button>
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock%}

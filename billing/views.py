@@ -1,6 +1,6 @@
 import hashlib
 from django.http import HttpResponse,JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Tshirt_cart.models import cart
 from .models import checkout,order_payment_history
 from product_list.models import products
@@ -10,9 +10,17 @@ from tshirt.settings import RAZORPAY_SECRET_KEY,RAZORPAY_KEY_ID
 from django.views.decorators.csrf import csrf_exempt
 import hmac
 import json
+
+def unload_f(request):
+    print('got unload command',request)
+    # uuid=User.objects.get(username=request.user.username)
+    # checkout.objects.filter(user=uuid).delete()
+    return JsonResponse({'msg':'unloaded'})
+
 def add_to_checkout(request):
     uuid=User.objects.get(username=request.user.username)
     cart_obj=cart.objects.filter(user_name=uuid.id)
+    checkout.objects.filter(user=uuid).delete()
     for i in cart_obj:
         order_count=i.product_count
         prod_obj=products.objects.get(id=i.product_id_id)
@@ -32,7 +40,7 @@ def add_to_checkout(request):
                     ob.save()
         except:
             print('in except')
-            checkout.objects.filter(user=uuid.id).delete()
+            # checkout.objects.filter(user=uuid.id).delete()
             order_obj=checkout.objects.create(user=uuid,product_id_id=prod_obj.id,
             order_count=i.product_count,price_of_one=prod_obj.price,total_amount=total_sum)
             order_obj.save()
@@ -47,6 +55,7 @@ def add_to_checkout(request):
 
     return render(request,'buy.html',{'cart_order_prod':cart_order_prod,'total_sum':total_sum,'total_sum_paise':total_sum*100,
     'RAZORPAY_KEY_ID':RAZORPAY_KEY_ID,'buy_now':False})
+
 @csrf_exempt
 def order_success(request,username,buy_now):
     if request.POST:
@@ -79,7 +88,7 @@ def order_success(request,username,buy_now):
                     'razorpay_payment_id': raz_payment_id,
                     'razorpay_signature': raz_sig})
 
-                return render(request,'status.html',{'status':'Thank u We got your order'})
+                return redirect('/buy/status/1/')
             else:
                 for i in ckt_obj:
                     prd_obj=products.objects.get(id=i.product_id_id)
@@ -87,7 +96,7 @@ def order_success(request,username,buy_now):
                     payment_order_id=raz_order_id)
                     obj.save()
                 print('failure status saved')
-                return render(request,'status.html',{'status':'Sorry we didnot get ur order'})
+                return redirect('/buy/status/0/')
         else:
                 print(request)
                 d=request.POST['error[metadata]']
@@ -100,9 +109,16 @@ def order_success(request,username,buy_now):
                     payment_order_id=oid)
                     obj.save()
                 obj.save()
-                return render(request,'status.html',{'status':'Sorry we didnot get ur order'})
+                return redirect('/buy/status/0/')
+
 
     return HttpResponse('bad request')
+def payment_status(request,status):
+    if int(status)==1:
+        msg='Thank u we got ur order'
+    else:
+        msg='Sorry we didnot get ur order'
+    return render(request,'status.html',{'status':msg})
 
 def create_razorpay_order(request):
         uuid=User.objects.get(username=request.user.username)
@@ -122,9 +138,14 @@ def create_razorpay_order(request):
 
 def buy_now(request):
     if request.POST:
+        print(request.user)
         print('in buy now')
         prod_obj=products.objects.get(id=int(request.POST['product_id']))
         uuid=User.objects.get(username=request.user.username)
+        checkout.objects.filter(user=uuid).delete()
+
+        # try:
+        #     ckt_obj=checkout.objects.filter()
         checkout_obj=checkout.objects.create(user=uuid,product_id_id=request.POST['product_id'],order_count=request.POST['count'],
         price_of_one=request.POST['product_price'],total_amount=int(request.POST['count'])*float(request.POST['product_price']))
         checkout_obj.save()
@@ -136,4 +157,4 @@ def buy_now(request):
 
 
 
-    
+    	

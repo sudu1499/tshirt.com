@@ -36,9 +36,6 @@
                 </button>
                 </select>
             </div>
-            <!-- <div class="price_part">
-                <h1>₹{{prd_obj.price}}/-</h1>
-            </div> -->
         </div>
         <hr class="hr_{{forloop.counter}}">
         {% endfor %}
@@ -50,7 +47,7 @@
         <hr style="width: 90%;margin:auto"><br>
         <h1 id="total_h1">₹{{total_sum}}/-</h1>
         <button style="background-color:yellow;border-radius:30px;width:200px;height:40px"
-            onclick="location.href='/buy/add_to_order'">proceed to buy</button>
+            onclick="location.href='/buy/add_to_order'" class="action_btn">proceed to buy</button>
     </div>
 </div>
 {% else %}
@@ -61,7 +58,7 @@
     <hr style="width: 90%;margin:auto"><br>
     <h1 id="total_h1">₹{{total_sum}}/-</h1>
     <h1>your cart is empty </h1>
-    <button style="background-color:yellow;border-radius:30px;width:200px;height:40px" onclick="location.href='/'">Add
+    <button style="background-color:yellow;border-radius:30px;width:200px;height:40px" onclick="location.href='/'" class="action_btn">Add
         to cart</button>
 </div>
 </div>

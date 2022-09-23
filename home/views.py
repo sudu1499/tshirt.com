@@ -12,6 +12,6 @@ def home(request):
     # obj1=cart.objects.all().delete()
     # obj1=checkout.objects.all().delete()
     # obj1=order_payment_history.objects.all().delete()
-
+    request.session['name']='sudu bhai'
     context=category.objects.all()
     return render(request,'home.html',{'obj':context,'media_url':settings.MEDIA_URL})

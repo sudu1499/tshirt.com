@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'users_login',
     'Tshirt_cart',
     'billing',
-    # 'myorder',
+    'myorder',
 ]
 
 MIDDLEWARE = [

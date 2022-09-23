@@ -78,3 +78,9 @@
 .individual_item h1{
     margin: 10px 0;
 }
+#rzp-button1:hover{
+    box-shadow: 0 0 5px 3px black;
+}
+.edit_btn:hover{
+    box-shadow: 0 0 5px 3px black;
+}

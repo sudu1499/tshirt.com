@@ -38,7 +38,7 @@
     <h2>₹{{total_sum}}/-</h2>
     <button style="background-color:yellow;border-radius:30px;width:200px;height:40px" id="rzp-button1">pay ₹{{total_sum}}/-</button>
     <button style="border-radius:30px;width:200px;height:40px;margin-top: 10px;"
-     onclick="location.href='/cart/list_cart'">Edit cart</button>
+     onclick="location.href='/cart/list_cart'" class="edit_btn">Edit cart</button>
      
 </div>
 {% endblock %}
@@ -84,6 +84,14 @@ document.getElementById('rzp-button1').onclick = function(e){
         
     })
 }
+window.addEventListener('unload',()=>{
+    $.ajax({
+        method:'GET',
+        url:'/buy/unload/'
+    }).done((response)=>{
+        console.log(response)
+    })
+})
 
 
 </script>
